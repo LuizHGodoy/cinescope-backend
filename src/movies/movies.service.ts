@@ -109,10 +109,8 @@ export class MoviesService {
 
   async clearMoviesDatabase() {
     await this.prisma.movie.deleteMany();
-    await this.prisma.indexingStatus.deleteMany();
-    this.logger.log(
-      "Todos os filmes e o status de indexação foram removidos do banco de dados.",
-    );
+    this.updateLastIndexedPage(1);
+    this.logger.log("Todos os filmes foram removidos do banco de dados.");
   }
 
   async reindexMovies() {
